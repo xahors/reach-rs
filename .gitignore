@@ -1,0 +1,62 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Node / Dependencies
+node_modules/
+ui/node_modules/
+dist/
+ui/dist/
+dist-ssr
+*.local
+
+# Rust / Tauri
+src-tauri/target/
+src-tauri/gen/
+src-tauri/binaries/
+
+# Secrets and environment
+.env
+.env.*
+!.env.example
+secrets.json
+
+# Gemini CLI / AI stuff
+.gemini/
+.geminiignore
+# GEMINI.md is NOT ignored as it's a team-shared instruction file
+capture_logs.js
+CLAUDE.md
+.claude/
+.claudeignore
+
+# OS / IDE
+.vscode/
+!.vscode/extensions.json
+.idea/
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+thumbs.db
+desktop.ini
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
+
+# Playwright Additions
+.playwright-mcp/
+test-playwright.mjs
+tests/**/*.png
+*.png
