@@ -24,3 +24,7 @@ log = "0.4"
 tauri = { version = "2.11.1", features = [] }
 tauri-plugin-log = "2"
 tauri-plugin-notification = "2.2.1"
+matrix-sdk = { version = "0.8.0", default-features = false, features = ["e2e-encryption", "sqlite", "rustls-tls"] }
+tokio = { version = "1.52.3", features = ["full"] }
+futures-util = "0.3.32"
+anyhow = "1.0.102"

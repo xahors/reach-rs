@@ -18,10 +18,10 @@ const Login: React.FC = () => {
     setLoading(true);
 
     try {
-      const client = await matrixService.login(homeserver, username, password);
-      if (client) {
-        setLoggedIn(true, client.getUserId());
-        callManager.init();
+      const response = await matrixService.login(homeserver, username, password);
+      if (response) {
+        setLoggedIn(true, response.user_id);
+        // callManager.init(); // TODO: Re-enable when call manager is ready for native
       }
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : 'Login failed. Please check your credentials.';
