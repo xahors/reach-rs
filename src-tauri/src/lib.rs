@@ -1,4 +1,7 @@
 use tauri::Window;
+mod matrix;
+use matrix::{MatrixState, login, logout, reconnect, start_sync};
+use tokio::sync::Mutex;
 
 #[tauri::command]
 fn minimize_window(window: Window) {
@@ -23,7 +26,18 @@ fn close_window(window: Window) {
 pub fn run() {
   tauri::Builder::default()
     .plugin(tauri_plugin_notification::init())
-    .invoke_handler(tauri::generate_handler![minimize_window, maximize_window, close_window])
+    .manage(MatrixState {
+      client: Mutex::new(None),
+    })
+    .invoke_handler(tauri::generate_handler![
+      minimize_window, 
+      maximize_window, 
+      close_window,
+      login,
+      logout,
+      reconnect,
+      start_sync
+    ])
     .setup(|app| {
       if cfg!(debug_assertions) {
         app.handle().plugin(

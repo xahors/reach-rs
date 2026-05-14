@@ -1,6 +1,5 @@
-import * as sdk from 'matrix-js-sdk';
 import { matrixService } from '../core/matrix';
 
-export const useMatrixClient = (): sdk.MatrixClient | null => {
+export const useMatrixClient = (): any => {
   return matrixService.getClient();
 };

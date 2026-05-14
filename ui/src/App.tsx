@@ -119,38 +119,19 @@ function App() {
 
   useEffect(() => {
     const initMatrix = async () => {
-      const existingClient = matrixService.getClient();
-      if (existingClient && existingClient.clientRunning) {
-        console.log('Matrix client already running.');
-        setInitializing(false);
-        return;
-      }
-
       // Safety timeout to not hang forever if sync is slow
       const timeout = setTimeout(() => {
         setInitializing(false);
       }, 8000);
 
       try {
-        if (existingClient) {
-          console.log('Client exists but not running, reconnecting...');
-          try {
-            await matrixService.reconnect();
-            setLoggedIn(true, existingClient.getUserId());
-            callManager.init();
-          } catch (err) {
-            console.error('Reconnection failed:', err);
-            setLoggedIn(false, null);
-          }
+        const success = await matrixService.loginWithStoredToken();
+        if (success) {
+          const userId = localStorage.getItem('matrix_user_id');
+          setLoggedIn(true, userId);
+          // callManager.init(); // TODO: Re-enable when call manager is ready for native
         } else {
-          const client = await matrixService.loginWithStoredToken();
-          if (client) {
-            setLoggedIn(true, client.getUserId());
-            callManager.init();
-          } else {
-            // Explicitly set logged out if token login failed
-            setLoggedIn(false, null);
-          }
+          setLoggedIn(false, null);
         }
       } catch (error) {
         console.error('Failed to initialize Matrix client:', error);
